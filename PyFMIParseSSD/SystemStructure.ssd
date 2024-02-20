@@ -1,0 +1,528 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ssd:SystemStructureDescription xmlns:ssc="http://ssp-standard.org/SSP1/SystemStructureCommon" xmlns:ssd="http://ssp-standard.org/SSP1/SystemStructureDescription" xmlns:ssb="http://ssp-standard.org/SSP1/SystemStructureSignalDictionary" xmlns:ssv="http://ssp-standard.org/SSP1/SystemStructureParameterValues" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" name="Primer" generationTool="Model.CONNECT" generationDateAndTime="2023-02-17T09:07:44Z" xsi:schemaLocation="http://ssp-standard.org/SSP1/SystemStructureDescription http://ssp-standard.org/SSP1/SSP/1.0/SystemStructureDescription.xsd">
+  <ssd:System name="Primer" description="WLTP (Worldwide Harmonized Light-Duty Vehicles Test Procedure)&#10;Engine (internal combustion engine, model made in AVL CRUISE™ M)&#10;Driveline (model made in AVL CRUISE™ M)&#10;Driver (model made in MATLAB/Simulink)&#10;VTMS (Vehicle Thermal Management System, model made in AVL CRUISE™ M)&#10;&#10;All components are co-simulated using the FMU model interface.">
+    <ssd:Connectors>
+      <ssd:Connector name="Constants.Ambient Temperature" kind="parameter">
+        <ssc:Real unit="K"/>
+      </ssd:Connector>
+      <ssd:Connector name="Constants.Small Fan Speed" kind="parameter">
+        <ssc:Real unit="rpm"/>
+      </ssd:Connector>
+    </ssd:Connectors>
+    <ssd:ElementGeometry x1="-21.0" y1="24.0" x2="-9.0" y2="36.0"/>
+    <ssd:ParameterBindings>
+      <ssd:ParameterBinding type="application/x-ssp-parameter-set" source="resources/Primer.ssv"/>
+    </ssd:ParameterBindings>
+    <ssd:Elements>
+      <ssd:Component name="Driver" type="application/x-fmu-sharedlibrary" source="resources/ExtDriver.fmu">
+        <ssd:Connectors>
+          <ssd:Connector name="Actual_velocity" kind="input">
+            <ssc:Real unit="km/h"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.33333334"/>
+          </ssd:Connector>
+          <ssd:Connector name="Desired_velocity" kind="input">
+            <ssc:Real unit="km/h"/>
+            <ssd:ConnectorGeometry x="0.5" y="0.0"/>
+          </ssd:Connector>
+          <ssd:Connector name="Brake_signal" kind="output">
+            <ssc:Real unit="[-]"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.5"/>
+          </ssd:Connector>
+          <ssd:Connector name="Gear" kind="output">
+            <ssc:Real/>
+            <ssd:ConnectorGeometry x="1.0" y="0.5"/>
+          </ssd:Connector>
+          <ssd:Connector name="Clutch_release" kind="output">
+            <ssc:Real/>
+            <ssd:ConnectorGeometry x="1.0" y="0.33333334"/>
+          </ssd:Connector>
+          <ssd:Connector name="Load_signal" kind="output">
+            <ssc:Real unit="[-]"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.5"/>
+          </ssd:Connector>
+        </ssd:Connectors>
+        <ssd:ElementGeometry x1="-39.46288618091109" y1="-42.49573966320072" x2="-3.462886180911091" y2="-6.495739663200726" iconSource="resources/icons/Driver-zs595g4d.png"/>
+        <ssd:ParameterBindings>
+          <ssd:ParameterBinding type="application/x-ssp-parameter-set" source="resources/Driver.ssv"/>
+        </ssd:ParameterBindings>
+      </ssd:Component>
+      <ssd:Component name="Engine" type="application/x-fmu-sharedlibrary" source="resources/1_5_L_4CYL_N_Alpha.fmu">
+        <ssd:Connectors>
+          <ssd:Connector name="Engine.Speed" kind="input">
+            <ssc:Real unit="rpm"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.8888889"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.StartSwitch" kind="input">
+            <ssc:Real/>
+            <ssd:ConnectorGeometry x="0.0" y="0.7777778"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.LoadSignal" kind="input">
+            <ssc:Real unit="[-]"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.6666667"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.Head Temp" kind="input">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.5555556"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.Liner Temp" kind="input">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.44444445"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.Piston Temp" kind="input">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.33333334"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.IntakePort Temp" kind="input">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.22222222"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.ExhaustPort Temp" kind="input">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.11111111"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.EngineTorque" kind="output">
+            <ssc:Real unit="N.m"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.9375"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.Operation Control" kind="output">
+            <ssc:Real/>
+            <ssd:ConnectorGeometry x="1.0" y="0.875"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.FuelCons" kind="output">
+            <ssc:Real unit="g/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.8125"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.EngineSpeed" kind="output">
+            <ssc:Real unit="rpm"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.75"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.EnginePower" kind="output">
+            <ssc:Real unit="kW"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.6875"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.HT IntakePort" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.625"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.HT ExhaustPort" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.5625"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.HT Piston" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.5"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.HT Head" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.4375"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.HT Liner" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.375"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.HT Turbine" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.3125"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.IntakePressure" kind="output">
+            <ssc:Real unit="Pa"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.25"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.IntakeTemperature" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.1875"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.TurbinePower" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.125"/>
+          </ssd:Connector>
+          <ssd:Connector name="Engine.TurbineSpeed" kind="output">
+            <ssc:Real unit="rad/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.0625"/>
+          </ssd:Connector>
+        </ssd:Connectors>
+        <ssd:ElementGeometry x1="-39.46288891343223" y1="18.029995342502115" x2="-3.462888913432234" y2="54.02999534250211" iconSource="resources/icons/Engine-w2jkcoib.png"/>
+        <ssd:ParameterBindings>
+          <ssd:ParameterBinding type="application/x-ssp-parameter-set" source="resources/Engine.ssv"/>
+        </ssd:ParameterBindings>
+      </ssd:Component>
+      <ssd:Component name="Driveline" type="application/x-fmu-sharedlibrary" source="resources/Aut_FWD.fmu">
+        <ssd:Connectors>
+          <ssd:Connector name="Driveline.Engine Torque" kind="input">
+            <ssc:Real unit="N.m"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.75"/>
+          </ssd:Connector>
+          <ssd:Connector name="Driveline.Load Signal" kind="input">
+            <ssc:Real unit="[-]"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.5"/>
+          </ssd:Connector>
+          <ssd:Connector name="Driveline.Brake Signal" kind="input">
+            <ssc:Real unit="[-]"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.25"/>
+          </ssd:Connector>
+          <ssd:Connector name="Driveline.Engine Speed" kind="output">
+            <ssc:Real unit="rpm"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.8"/>
+          </ssd:Connector>
+          <ssd:Connector name="Driveline.Vehicle Velocity" kind="output">
+            <ssc:Real unit="km/h"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.6"/>
+          </ssd:Connector>
+          <ssd:Connector name="Driveline.Gear" kind="output">
+            <ssc:Real/>
+            <ssd:ConnectorGeometry x="1.0" y="0.4"/>
+          </ssd:Connector>
+          <ssd:Connector name="Driveline.Start Switch" kind="output">
+            <ssc:Real/>
+            <ssd:ConnectorGeometry x="1.0" y="0.2"/>
+          </ssd:Connector>
+        </ssd:Connectors>
+        <ssd:ElementGeometry x1="-110.5845202440337" y1="-36.50421462620402" x2="-74.5845202440337" y2="-0.5042146262040204" iconSource="resources/icons/Driveline-qb60kxkq.png"/>
+        <ssd:ParameterBindings>
+          <ssd:ParameterBinding type="application/x-ssp-parameter-set" source="resources/Driveline.ssv"/>
+        </ssd:ParameterBindings>
+      </ssd:Component>
+      <ssd:Component name="VTMS" type="application/x-fmu-sharedlibrary" source="resources/VTMS.fmu">
+        <ssd:Connectors>
+          <ssd:Connector name="VTMS.Engine_Speed" kind="input">
+            <ssc:Real unit="rpm"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.9230769"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Amb_Temp" kind="input">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.84615386"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Vehicle_Velocity" kind="input">
+            <ssc:Real unit="km/h"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.7692308"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Coolant_Pump_Speed" kind="input">
+            <ssc:Real unit="rpm"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.6923077"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.HT Intake port" kind="input">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.61538464"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.HT Exhaust Port" kind="input">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.53846157"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.HT Piston" kind="input">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.46153846"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.HT Head" kind="input">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.3846154"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.HT Liner" kind="input">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.30769232"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.HT Turbine" kind="input">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.23076923"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Fan Big Speed" kind="input">
+            <ssc:Real unit="rpm"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.15384616"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Fan Small Speed" kind="input">
+            <ssc:Real unit="rpm"/>
+            <ssd:ConnectorGeometry x="0.0" y="0.07692308"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.IntakePort Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.9767442"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.ExhaustPort Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.95348835"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Piston Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.9302326"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Head Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.90697676"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Liner Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.88372093"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Turbine Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.8604651"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.IntakeManifold Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.8372093"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.ExhaustManifold Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.81395346"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilPan Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.7906977"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantRadIn Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.76744187"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantRadOut Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.74418604"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantOilHE_In Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.7209302"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantOilHE_Out Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.6976744"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantTurboIn Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.6744186"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantTurboOut Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.6511628"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantBlockOut Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.627907"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantExpans Pressure" kind="output">
+            <ssc:Real unit="Pa"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.60465115"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantPumpIn Pressure" kind="output">
+            <ssc:Real unit="Pa"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.5813953"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantPumpOut Pressure" kind="output">
+            <ssc:Real unit="Pa"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.55813956"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantOilHE VolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.53488374"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantTurbo VolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.5116279"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantRad VolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.4883721"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilCamHead Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.4651163"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilRadIn Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.44186047"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilRadOut Temp" kind="output">
+            <ssc:Real unit="degC"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.41860464"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilPump Pressure" kind="output">
+            <ssc:Real unit="Pa"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.39534885"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilCamHead Pressure" kind="output">
+            <ssc:Real unit="Pa"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.37209302"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilMainBranch VolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.3488372"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilCranktrain Volumeflow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.3255814"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilCamHead VolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.30232558"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilTurbo Volumeflow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.27906978"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilRad VolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.25581396"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.OilPistonJets VolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.23255815"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.RadAir MassFlow" kind="output">
+            <ssc:Real unit="kg/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.20930232"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.RadAirOut Temp" kind="output">
+            <ssc:Real unit="K"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.18604651"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.CoolantPumpVolumeFlow" kind="output">
+            <ssc:Real unit="m^3/s"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.1627907"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Coolant HT head" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.13953489"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Coolant HT InPort" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.11627907"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Coolant HT ExPort" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.093023255"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Coolant HT BlockHot 1" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.069767445"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Coolant HTBlockHot 2" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.046511628"/>
+          </ssd:Connector>
+          <ssd:Connector name="VTMS.Coolant HT Block Cold" kind="output">
+            <ssc:Real unit="W"/>
+            <ssd:ConnectorGeometry x="1.0" y="0.023255814"/>
+          </ssd:Connector>
+        </ssd:Connectors>
+        <ssd:ElementGeometry x1="-108.8885479775103" y1="24.024501246571283" x2="-72.8885479775103" y2="60.02450124657129" iconSource="resources/icons/VTMS-slrk8fdb.png"/>
+        <ssd:ParameterBindings>
+          <ssd:ParameterBinding type="application/x-ssp-parameter-set" source="resources/VTMS.ssv"/>
+        </ssd:ParameterBindings>
+      </ssd:Component>
+    </ssd:Elements>
+    <ssd:Connections>
+      <ssd:Connection startConnector="Constants.Small Fan Speed" endElement="VTMS" endConnector="VTMS.Fan Small Speed">
+        <ssd:ConnectionGeometry pointsX="-121.66374206542969 -121.66374206542969" pointsY="43.232635259628296 48.02450180053711"/>
+      </ssd:Connection>
+      <ssd:Connection startConnector="Constants.Ambient Temperature" endElement="VTMS" endConnector="VTMS.Amb_Temp">
+        <ssd:ConnectionGeometry pointsX="-131.4389419555664 -131.4389419555664" pointsY="47.83461570739746 48.02450180053711"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="VTMS" startConnector="VTMS.Head Temp" endElement="Engine" endConnector="Engine.Head Temp">
+        <ssd:ConnectionGeometry pointsX="-68.16001653671265 -68.16001653671265" pointsY="42.024500370025635 42.02999711036682"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.HT IntakePort" endElement="VTMS" endConnector="VTMS.HT Intake port">
+        <ssd:ConnectionGeometry pointsX="-64.70551013946533 -64.70551013946533" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Driver" startConnector="Load_signal" endElement="Engine" endConnector="Engine.LoadSignal">
+        <ssd:ConnectionGeometry pointsX="1.8746856227517128 1.8746856227517128" pointsY="-24.49574053287506 36.02999567985535"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="VTMS" startConnector="VTMS.IntakePort Temp" endElement="Engine" endConnector="Engine.IntakePort Temp">
+        <ssd:ConnectionGeometry pointsX="-62.9803991317749 -62.9803991317749" pointsY="42.024500370025635 42.02999711036682"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Driveline" startConnector="Driveline.Start Switch" endElement="Engine" endConnector="Engine.StartSwitch">
+        <ssd:ConnectionGeometry pointsX="-92.5845193862915 -63.03214073181152 -63.03214073181152" pointsY="2.495785430073738 2.495785430073738 30.029994249343872"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Driver" startConnector="Load_signal" endElement="Driveline" endConnector="Driveline.Load Signal">
+        <ssd:ConnectionGeometry pointsX="-65.76019763946533 -65.76019763946533" pointsY="-18.495739102363586 -18.504214882850647"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.EngineSpeed" endElement="VTMS" endConnector="VTMS.Coolant_Pump_Speed">
+        <ssd:ConnectionGeometry pointsX="-61.25728368759155 -61.25728368759155" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.HT Piston" endElement="VTMS" endConnector="VTMS.HT Piston">
+        <ssd:ConnectionGeometry pointsX="-59.536542892456055 -59.536542892456055" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.HT Liner" endElement="VTMS" endConnector="VTMS.HT Liner">
+        <ssd:ConnectionGeometry pointsX="-57.81848430633545 -57.81848430633545" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.EngineTorque" endElement="Driveline" endConnector="Driveline.Engine Torque">
+        <ssd:ConnectionGeometry pointsX="-56.175724267959595 -56.175724267959595 -92.5845193862915" pointsY="30.029994249343872 21.027249097824097 21.027249097824097"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Driveline" startConnector="Driveline.Vehicle Velocity" endElement="VTMS" endConnector="VTMS.Vehicle_Velocity">
+        <ssd:ConnectionGeometry pointsX="-119.5845079421997 -119.5845079421997" pointsY="-18.504214882850647 36.02450251579285"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Driver" startConnector="Brake_signal" endElement="Driveline" endConnector="Driveline.Brake Signal">
+        <ssd:ConnectionGeometry pointsX="-54.11154270172119 -54.11154270172119" pointsY="-18.495739102363586 -18.504214882850647"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="VTMS" startConnector="VTMS.Piston Temp" endElement="Engine" endConnector="Engine.Piston Temp">
+        <ssd:ConnectionGeometry pointsX="-56.10329031944275 -56.10329031944275" pointsY="42.024500370025635 42.02999711036682"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="VTMS" startConnector="VTMS.ExhaustPort Temp" endElement="Engine" endConnector="Engine.ExhaustPort Temp">
+        <ssd:ConnectionGeometry pointsX="-54.39101457595825 -54.39101457595825" pointsY="42.024500370025635 42.02999711036682"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Driveline" startConnector="Driveline.Vehicle Velocity" endElement="Driver" endConnector="Actual_velocity">
+        <ssd:ConnectionGeometry pointsX="-48.28721523284912 -48.28721523284912" pointsY="-18.504214882850647 -18.495739102363586"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="VTMS" startConnector="VTMS.Liner Temp" endElement="Engine" endConnector="Engine.Liner Temp">
+        <ssd:ConnectionGeometry pointsX="-52.68155336380005 -52.68155336380005" pointsY="42.024500370025635 42.02999711036682"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.EngineSpeed" endElement="VTMS" endConnector="VTMS.Engine_Speed">
+        <ssd:ConnectionGeometry pointsX="-50.974674224853516 -50.974674224853516" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.EngineSpeed" endElement="VTMS" endConnector="VTMS.Fan Big Speed">
+        <ssd:ConnectionGeometry pointsX="-49.26999807357788 -49.26999807357788" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Driveline" startConnector="Driveline.Engine Speed" endElement="Engine" endConnector="Engine.Speed">
+        <ssd:ConnectionGeometry pointsX="-92.5845193862915 -49.319307804107666 -49.319307804107666" pointsY="11.760142743587494 11.760142743587494 30.029994249343872"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.HT ExhaustPort" endElement="VTMS" endConnector="VTMS.HT Exhaust Port">
+        <ssd:ConnectionGeometry pointsX="-47.56704568862915 -47.56704568862915" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.HT Turbine" endElement="VTMS" endConnector="VTMS.HT Turbine">
+        <ssd:ConnectionGeometry pointsX="-45.865269899368286 -45.865269899368286" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+      <ssd:Connection startElement="Engine" startConnector="Engine.HT Head" endElement="VTMS" endConnector="VTMS.HT Head">
+        <ssd:ConnectionGeometry pointsX="-44.16408061981201 -44.16408061981201" pointsY="42.02999711036682 42.024500370025635"/>
+      </ssd:Connection>
+    </ssd:Connections>
+    <ssd:SystemGeometry x1="-171.33403035478554" y1="-62.4156346998414" x2="9.85104416479317" y2="72.23035822087402"/>
+  </ssd:System>
+  <ssd:Units>
+    <ssc:Unit name="K">
+      <ssc:BaseUnit K="1"/>
+    </ssc:Unit>
+    <ssc:Unit name="rpm">
+      <ssc:BaseUnit s="-1" rad="1" factor="0.10471975511965978"/>
+    </ssc:Unit>
+    <ssc:Unit name="km/h">
+      <ssc:BaseUnit m="1" s="-1" factor="0.2777777777777778"/>
+    </ssc:Unit>
+    <ssc:Unit name="[-]">
+      <ssc:BaseUnit/>
+    </ssc:Unit>
+    <ssc:Unit name="degC">
+      <ssc:BaseUnit K="1" offset="273.15"/>
+    </ssc:Unit>
+    <ssc:Unit name="N.m">
+      <ssc:BaseUnit kg="1" m="2" s="-2"/>
+    </ssc:Unit>
+    <ssc:Unit name="g/s">
+      <ssc:BaseUnit kg="1" s="-1" factor="0.001"/>
+    </ssc:Unit>
+    <ssc:Unit name="kW">
+      <ssc:BaseUnit kg="1" m="2" s="-3" factor="1000.0"/>
+    </ssc:Unit>
+    <ssc:Unit name="W">
+      <ssc:BaseUnit kg="1" m="2" s="-3"/>
+    </ssc:Unit>
+    <ssc:Unit name="Pa">
+      <ssc:BaseUnit kg="1" m="-1" s="-2"/>
+    </ssc:Unit>
+    <ssc:Unit name="rad/s">
+      <ssc:BaseUnit s="-1" rad="1"/>
+    </ssc:Unit>
+    <ssc:Unit name="m^3/s">
+      <ssc:BaseUnit m="3" s="-1"/>
+    </ssc:Unit>
+    <ssc:Unit name="kg/s">
+      <ssc:BaseUnit kg="1" s="-1"/>
+    </ssc:Unit>
+  </ssd:Units>
+  <ssd:DefaultExperiment startTime="0.0" stopTime="460.0"/>
+</ssd:SystemStructureDescription>
